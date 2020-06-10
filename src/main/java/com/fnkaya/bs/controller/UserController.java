@@ -1,10 +1,7 @@
 package com.fnkaya.bs.controller;
 
-import com.fnkaya.bs.dto.BookDto;
 import com.fnkaya.bs.dto.CustomPage;
 import com.fnkaya.bs.dto.UserDto;
-import com.fnkaya.bs.model.Category;
-import com.fnkaya.bs.service.ICategoryService;
 import com.fnkaya.bs.service.IUserService;
 import com.fnkaya.bs.util.APIPath;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +20,11 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getById(@PathVariable("id") Long id){
         return ResponseEntity.ok(service.getById(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<UserDto> getByUsername(@RequestParam("username") String username){
+        return ResponseEntity.ok(service.getByUsername(username));
     }
 
     @GetMapping

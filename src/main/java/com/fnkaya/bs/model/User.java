@@ -29,4 +29,7 @@ public class User implements Serializable {
 
     @Column(length = 100)
     private String email;
+
+    private Boolean admin;
+
 }
