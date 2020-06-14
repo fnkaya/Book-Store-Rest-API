@@ -14,4 +14,9 @@ public class UserDto {
     private String username;
     private String email;
     private boolean admin;
+    private String city;
+    private String state;
+    private String address;
+    private String zipcode;
+    private String phoneNumber;
 }

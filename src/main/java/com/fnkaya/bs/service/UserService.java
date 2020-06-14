@@ -1,6 +1,5 @@
 package com.fnkaya.bs.service;
 
-import com.fnkaya.bs.dto.BookDto;
 import com.fnkaya.bs.dto.CustomPage;
 import com.fnkaya.bs.dto.RegistrationRequest;
 import com.fnkaya.bs.dto.UserDto;
@@ -30,6 +29,23 @@ public class UserService implements IUserService {
         if (userDto.getUsername() == null)
             throw new IllegalArgumentException("Username can not be null");
         User user = modelMapper.map(userDto, User.class);
+        user = repository.save(user);
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    @Override
+    public UserDto update(UserDto userDto) {
+        if (userDto.getUsername() == null)
+            throw new IllegalArgumentException("Username can not be null");
+        User user = repository.getOne(userDto.getId());
+        user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setCity(userDto.getCity());
+        user.setState(userDto.getState());
+        user.setAddress(userDto.getAddress());
+        user.setZipcode(userDto.getZipcode());
+        user.setPhoneNumber(userDto.getPhoneNumber());
         user = repository.save(user);
         return modelMapper.map(user, UserDto.class);
     }
@@ -68,8 +84,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public CustomPage<BookDto> getPageByName(String name, Pageable pageable) {
-        Page<User> userPage = repository.findByUsername(name, pageable);
+    public CustomPage<UserDto> getPageByName(String name, Pageable pageable) {
+        Page<User> userPage = repository.findByNameContainingIgnoreCase(name, pageable);
         CustomPage page = new CustomPage<UserDto>();
         UserDto[] userDtos = modelMapper.map(userPage.getContent(), UserDto[].class);
         page.setData(userPage, Arrays.asList(userDtos));
@@ -85,6 +101,24 @@ public class UserService implements IUserService {
             user.setUsername(registrationRequest.getUsername());
             user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             user.setAdmin(false);
+            repository.save(user);
+            return Boolean.TRUE;
+        }
+        catch (Exception e){
+            log.error("REGISTRATION :", e);
+            return Boolean.FALSE;
+        }
+    }
+
+    @Override
+    public Boolean registerAdmin(RegistrationRequest registrationRequest) {
+        try {
+            User user = new User();
+            user.setEmail(registrationRequest.getEmail());
+            user.setName(registrationRequest.getName());
+            user.setUsername(registrationRequest.getUsername());
+            user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            user.setAdmin(true);
             repository.save(user);
             return Boolean.TRUE;
         }

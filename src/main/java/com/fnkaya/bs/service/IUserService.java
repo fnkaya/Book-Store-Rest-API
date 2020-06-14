@@ -1,6 +1,5 @@
 package com.fnkaya.bs.service;
 
-import com.fnkaya.bs.dto.BookDto;
 import com.fnkaya.bs.dto.CustomPage;
 import com.fnkaya.bs.dto.RegistrationRequest;
 import com.fnkaya.bs.dto.UserDto;
@@ -10,6 +9,8 @@ public interface IUserService {
 
     UserDto save(UserDto userDto);
 
+    UserDto update(UserDto userDto);
+
     Boolean delete(Long id);
 
     UserDto getById(Long id);
@@ -18,7 +19,9 @@ public interface IUserService {
 
     CustomPage<UserDto> getPage(Pageable pageable);
 
-    CustomPage<BookDto> getPageByName(String name, Pageable pageable);
+    CustomPage<UserDto> getPageByName(String name, Pageable pageable);
 
     Boolean register(RegistrationRequest registrationRequest);
+
+    Boolean registerAdmin(RegistrationRequest registrationRequest);
 }

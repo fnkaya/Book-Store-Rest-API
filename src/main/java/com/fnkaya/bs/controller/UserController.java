@@ -7,6 +7,7 @@ import com.fnkaya.bs.util.APIPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +23,7 @@ public class UserController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @GetMapping("/search")
+    @GetMapping("/username")
     public ResponseEntity<UserDto> getByUsername(@RequestParam("username") String username){
         return ResponseEntity.ok(service.getByUsername(username));
     }
@@ -32,6 +33,11 @@ public class UserController {
         return ResponseEntity.ok(service.getPage(pageable));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<CustomPage<UserDto>> searchByName(@RequestParam("name") String name, Pageable pageable){
+        return ResponseEntity.ok(service.getPageByName(name, pageable));
+    }
+
     @PostMapping
     public ResponseEntity<UserDto> save(@RequestBody UserDto userDto){
         return ResponseEntity.ok(service.save(userDto));
@@ -39,7 +45,7 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<UserDto> update(@RequestBody UserDto userDto){
-        return ResponseEntity.ok(service.save(userDto));
+        return ResponseEntity.ok(service.update(userDto));
     }
 
     @DeleteMapping("/{id}")

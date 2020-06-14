@@ -32,4 +32,14 @@ public class User implements Serializable {
 
     private Boolean admin;
 
+    private String city;
+
+    private String state;
+
+    private String address;
+
+    private String zipcode;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 }

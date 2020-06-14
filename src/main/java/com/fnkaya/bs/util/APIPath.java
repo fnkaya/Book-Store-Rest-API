@@ -16,4 +16,8 @@ public final class APIPath {
         public static final String CTRL = BASE_PATH + "/user";
     }
 
+    public static final class OrderPath {
+        public static final String CTRL = BASE_PATH + "/order";
+    }
+
 }

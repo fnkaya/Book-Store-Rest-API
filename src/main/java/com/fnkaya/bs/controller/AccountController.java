@@ -37,4 +37,9 @@ public class AccountController {
     public ResponseEntity<Boolean> register(@RequestBody RegistrationRequest registrationRequest) throws AuthenticationException {
         return ResponseEntity.ok(userService.register(registrationRequest));
     }
+
+    @RequestMapping(value = "/register/admin", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> registerAdmin(@RequestBody RegistrationRequest registrationRequest) throws AuthenticationException {
+        return ResponseEntity.ok(userService.registerAdmin(registrationRequest));
+    }
 }

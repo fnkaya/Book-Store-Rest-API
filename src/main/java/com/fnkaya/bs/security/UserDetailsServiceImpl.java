@@ -25,6 +25,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid username or password");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+                Arrays.asList(new SimpleGrantedAuthority("ROLE_" + getUserAuthority(user))));
+    }
+
+    private String getUserAuthority(User user) {
+        if (user.getAdmin())
+            return "ADMIN";
+        else
+            return "USER";
     }
 }
