@@ -5,7 +5,9 @@ import com.fnkaya.bs.service.IOrderService;
 import com.fnkaya.bs.util.APIPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ public class OrderController {
 
     @GetMapping("/customer/{id}")
     public ResponseEntity<Page<Order>> getById(@PathVariable("id") Long id, Pageable pageable){
+        Sort sort = Sort.by("date").descending();
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         return ResponseEntity.ok(service.getByCustomerId(id, pageable));
     }
 
@@ -29,6 +33,8 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<Page<Order>> getAll(Pageable pageable){
+        Sort sort = Sort.by("date").descending();
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         return ResponseEntity.ok(service.getAll(pageable));
     }
 
