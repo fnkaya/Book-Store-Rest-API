@@ -1,4 +1,4 @@
-package com.fnkaya.bs.config;
+package com.fnkaya.bs.security;
 
 import com.fnkaya.bs.security.JwtAuthenticationEntryPoint;
 import com.fnkaya.bs.security.JwtAuthenticationFilter;
