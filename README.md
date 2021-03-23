@@ -1,3 +1,3 @@
 # Book Store Rest API
 
-<a href="https://github.com/fnkaya/Book-Store-Angular-Web-App">Frontend >>></a>
+<a href="https://github.com/fnkaya/angular-book-store">Frontend >>></a>
